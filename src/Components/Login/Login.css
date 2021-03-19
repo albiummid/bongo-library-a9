@@ -11,7 +11,7 @@
    
     
 }
-.form span{
+form span{
     border-bottom: 1px solid teal;
     padding-bottom: 6px;
 }
@@ -41,7 +41,7 @@
     background-color: white;
 }
 
-.form,.img-div {
+form,.img-div {
     width: 300px;
   display: grid;
   grid-template-rows: 350px 50px ;

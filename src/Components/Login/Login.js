@@ -7,7 +7,7 @@ import "./Login.css";
 import firebase from "firebase/app";
 import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faFacebook,  faGithub } from '@fortawesome/free-brands-svg-icons';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
 if (!firebase.apps.length) {
@@ -36,6 +36,7 @@ const Login = () => {
         firebase.auth()
             .signInWithPopup(provider)
             .then((result) => {
+                console.log(result);
                 const { email, displayName } = result.user;
                 const user = { email, name: displayName }
                 setLoggedInUser(user);
@@ -58,7 +59,9 @@ const Login = () => {
                 history.replace(from);
             })
             .catch((error) => {
-                setLoggedInUser(error);
+                const newUserInfo = {}
+                newUserInfo.error = error.message;
+                setLoggedInUser(newUserInfo);
 
             });
     }
@@ -89,56 +92,84 @@ const Login = () => {
     const handleChange = (event) => {
         let isFieldValid = true;
         let isPasswordMatched = false;
+        console.log(isPasswordMatched);
         console.log("password is", user.password);
         console.log("confirm Password is", user.confirmPassword);
-        
-       
-        // if (event.target.name === 'name')
-        
-        // {
-        //     console.log(event.target.value);
-        //     isFieldValid;
-        // }
 
-        // 
+
+        if (event.target.name === 'name') {
+            isFieldValid = true;
+        }
 
         if (event.target.name === 'email') {
             isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
         }
+        
         if (event.target.name === 'password') {
             const isPasswordValid = event.target.value.length > 6;
             const isPasswordHasNumber = /\d{1}/.test(event.target.value)
             isFieldValid = isPasswordValid && isPasswordHasNumber;
         }
         if (newUser && event.target.name === 'confirmPassword') {
-            if (user.password === event.target.value) {
-                
-            isPasswordMatched = true;
-            console.log("matched",isPasswordMatched);
-        }
-        else {
-            alert("pass doesn't Matched");
-                event.target.title= "pass not matched"
-        }
-           
-            isFieldValid = isPasswordMatched;
-            
+            if ( event.target.value === user.password ) {
+                isPasswordMatched = true;
+                const isPasswordValid = event.target.value.length > 6;
+            const isPasswordHasNumber = /\d{1}/.test(event.target.value)
+                isFieldValid = isPasswordMatched && isPasswordValid && isPasswordHasNumber;
+            }
         }
 
         if (isFieldValid) {
             const userInfo = { ...user };
-            // console.log("before update userinfo",userInfo);
             userInfo[event.target.name] = event.target.value;
-            console.log("after update userInfo",userInfo);
+            console.log("after update userInfo", userInfo);
             setUser(userInfo);
         }
 
     }
 
-    const handleSubmit = () => {
-        console.log("clicked");
+    const handleSubmit = (event) => {
+        if (newUser && user.email && user.password) {
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+            .then(res => {
+                const { email, displayName } = res.user;
+                const newUserInfo = { email, name: displayName };
+                newUserInfo.error = '';
+                setLoggedInUser(newUserInfo)
+                history.replace(from);
+                alert('SignUp successfully completed 😍')
+            })
+            .catch((error) => {
+                const newUserInfo = {};
+                newUserInfo.error = error.message;
+                setLoggedInUser(newUserInfo); 
+            });
+        }
+        if (!newUser && user.email && user.password) {
+            console.log("cliked on login");
+            firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+  .then(res => {
+    
+      const { email, displayName } = res.user;
+      const newUserInfo = {email,name:displayName}
+      console.log("User", res.user);
+      newUserInfo.error = '';
+      setLoggedInUser(newUserInfo);
+      alert("login successful")
+      history.replace(from)
+   
+  })
+  .catch((error) => {
+      const newUserInfo = {};
+      newUserInfo.error = error.message;
+      setLoggedInUser(newUserInfo);
+      alert("not logged in")
+  });
+        }
+        event.preventDefault();
     }
 
+    
 
     return (
         <div className="card-container">
@@ -154,7 +185,7 @@ const Login = () => {
                     }
 
                 </div>
-                <div className="form">
+                <form onSubmit ={handleSubmit}>
                     <div>
                         {
                             newUser ? <h1>Sign Up</h1> : <h1>Sign In</h1>
@@ -165,20 +196,20 @@ const Login = () => {
                                 <span >
                                     <FontAwesomeIcon icon={faUser} size="1x" />
                                 </span>
-                                <input onChange={handleChange} type="text" name="name" placeholder="Name" id="" required />
+                                <input onChange={handleChange} type="text" name="name" placeholder="Name"  required minLength="4" />
                             </div>
                         }
                         <div className="input-group">
                             <span>
-                                <FontAwesomeIcon icon={faEnvelope} size="1x" />
-                                <input onChange={handleChange} type="email" name="email" placeholder="Email" id="" required />
+                                <FontAwesomeIcon icon={faEnvelope} size="1x" /> 
                             </span>
+                            <input onChange={handleChange} type="email" name="email" placeholder="Email" required />
                         </div>
                         <div className="input-group">
                             <span >
                                 <FontAwesomeIcon icon={faLock} size="1x" />
                             </span>
-                            <input onChange={handleChange} type="password" name="password" placeholder="Password" id="" required />
+                            <input onChange={handleChange} type="password" name="password" placeholder="Password" minLength="6" required />
                         </div>
                         {
                             newUser &&
@@ -186,7 +217,10 @@ const Login = () => {
                                 <span >
                                     <FontAwesomeIcon icon={faLock} size="1x" />
                                 </span>
-                                <input onBlur={handleChange} type="password" name="confirmPassword" placeholder="Confirm Password" id="" required />
+                                <input onChange={handleChange} type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" required />
+                                {
+                                    user.confirmPassword !==user.password && <p style={{color:"red"}}>Passwords are not same</p>
+                                }
                             </div>
                         }
                         <input type="checkbox" name="remember-me" id="checkbox" />
@@ -194,24 +228,24 @@ const Login = () => {
                         <p style={{ color: "red" }}>{loggedInUser.error}</p>
 
                         {
-                            newUser ? <button onClick={handleSubmit}  className="submit btn">Submit</button> : <button  className="login btn">Login</button>
+                            !newUser && <input className="btn" type="submit" value="Sign In"/>  
                         }
+                        {
+                          newUser &&  user.password === user.confirmPassword && <input className="btn" type="submit" value="Submit"/>
+                        }
+
+                        
                     </div>
 
                     {
                         !newUser &&
                         <div className="social-links">
-                            {/* <p>Login with social accounts</p> */}
                             <button onClick={handleGoogleSignIn}> <FontAwesomeIcon icon={faGoogle} size="2x" /></button>
                             <button onClick={handleFbSignIn}> <FontAwesomeIcon icon={faFacebook} size="2x" /></button>
                             <button onClick={handleGithubSignIn}> <FontAwesomeIcon icon={faGithub} size="2x" /></button>
-                            {/* <button onClick={handleGithubSignIn}> <FontAwesomeIcon icon={faTwitter} size="2x" /></button> */}
                         </div>
                     }
-                </div>
-
-
-
+                </form>
 
             </div>
         </div>

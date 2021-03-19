@@ -28,7 +28,7 @@ const Header = (props) => {
                         }
                         <li>
                         {
-                        loggedInUser.name? <button className="btn" onClick={()=> setLoggedInUser({})}>Sign Out</button> : <button className="btn" onClick = {handleSignIn} >Sign In</button>
+                        loggedInUser.email? <button className="btn" onClick={()=> setLoggedInUser({})}>Sign Out</button> : <button className="btn" onClick = {handleSignIn} >Sign In</button>
                     }
                        </li>
                        

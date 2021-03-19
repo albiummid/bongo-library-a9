@@ -1,10 +1,10 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyB-eDj0R1yG7x_XxpvJT3ec0Idu6_UOIhM",
-    authDomain: "user-sign-in-up.firebaseapp.com",
-    projectId: "user-sign-in-up",
-    storageBucket: "user-sign-in-up.appspot.com",
-    messagingSenderId: "467666222402",
-    appId: "1:467666222402:web:0f34f25ffd7e774d73dcdb"
+  apiKey: "AIzaSyC8VaFoMRTr79msS5R5uP_85qGjmarCHKM",
+  authDomain: "bongo-riders.firebaseapp.com",
+  projectId: "bongo-riders",
+  storageBucket: "bongo-riders.appspot.com",
+  messagingSenderId: "396191673682",
+  appId: "1:396191673682:web:46e1528fa812e4077f9e8b"
 };
   
 export default firebaseConfig;
