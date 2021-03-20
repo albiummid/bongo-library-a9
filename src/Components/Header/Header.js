@@ -11,7 +11,8 @@ const Header = (props) => {
     const history = useHistory();
     const handleSignIn = () => {
         history.replace("/login")
-    } 
+    }
+    
     return (
         <div className="header">
             <div className="navbar">
@@ -35,7 +36,7 @@ const Header = (props) => {
                     </ul>
                    
                 </nav>
-                <img src={menuIcon} className="menu-icon" alt="" />
+                <img  src={menuIcon} className="menu-icon" alt="" />
             </div>
         </div>
         
