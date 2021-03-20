@@ -9,8 +9,8 @@ const Map = () => {
       };
       
       const center = {
-        lat: -3.745,
-        lng: -38.523
+        lat: 23.6850,
+        lng: 90.3563
       };
     const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
