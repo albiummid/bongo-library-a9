@@ -17,10 +17,10 @@
 .vehicle-container h2{
     text-transform: uppercase;
 }
+
 @media (max-width:1400px){
     .vehicle-container{
         width: 150px;
-        margin:
     }
     .vehicle-container img{
         width:80px;

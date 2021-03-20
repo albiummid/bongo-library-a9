@@ -1,11 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Map from '../Map/Map';
 import RiderCard from '../RiderCard/RiderCard';
 import "./SearchRidies.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faArrowDown, faLongArrowAltDown } from '@fortawesome/free-solid-svg-icons'
+import {  faLongArrowAltDown } from '@fortawesome/free-solid-svg-icons'
 
 const SearchRidies = () => {
     const [route, setRoute] = useState({

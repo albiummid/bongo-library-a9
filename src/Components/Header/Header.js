@@ -3,7 +3,7 @@ import "./Header.css";
 import logo from '../../images/logo.png';
 import menuIcon from '../../images/menu.png';
 import { UserContext } from '../../App';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 const Header = (props) => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
