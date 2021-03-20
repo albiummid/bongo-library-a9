@@ -1,10 +1,97 @@
 import React from 'react';
-import Header from '../Header/Header';
+import { useParams } from 'react-router';
+import { useEffect, useState } from 'react/cjs/react.development';
+import Map from '../Map/Map';
+import RiderCard from '../RiderCard/RiderCard';
+import "./SearchRidies.css"
 
 const SearchRidies = () => {
+    const [route, setRoute] = useState({
+        from: "",
+        to:""
+    });
+    const [isSearched, setIsSearched] = useState(false);
+    const { id } = useParams();
+    const [selectedVehicle, setSelectedVehicles] = useState([])
+    useEffect(() => {
+        const url = "https://api.npoint.io/6b5a64f78b7d4393011c"
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                const dataObj = data.bongo;
+                const matchedObject = dataObj.find(vehicle => vehicle.key === id);
+                setSelectedVehicles(matchedObject);
+            })
+
+    }, []);
+    console.log(selectedVehicle);
+
+    const searchHandler = (event) => {
+        const locationFrom = document.getElementById("from").value;
+        const locationTo = document.getElementById("to").value;
+        if (locationFrom && locationTo) {
+            const location = { ...route };
+            location.to = locationTo;
+            location.from = locationFrom;
+            setRoute(location)
+            setIsSearched(!isSearched);
+        }
+        
+     
+
+       
+    // const location = { ...route };
+    //         if (event.target.name === "from") {
+    //             location.from = event.target.value;
+    //             setRoute(location);
+    //         }
+    //         if (event.target.name === "to") { 
+    //             location.to = event.target.value;
+    //             setRoute(location);
+    //         }    
+        
+        
+    }
+
+    console.log(route);
     return (
-        <div>
-            <h1>This is Search</h1>
+        <div className="search-div">
+            {!isSearched &&
+                <form onSubmit={searchHandler} className="pickForm">
+                <div className="input-group">
+                    <span>
+                        Pick From:
+                            </span>
+                    <input id="from" type="text" name="from" placeholder="<< Location From " required />
+                </div>
+                <div className="input-group">
+                    <span>
+                        Pick To:
+                            </span>
+                    <input type="text" id="to" name="to" placeholder="Location to >>" required />
+                </div>
+                <button className="btn-search" onClick={searchHandler}>Submit</button>
+                {/* <input className="btn-search" type="submit" value="Search" /> */}
+            </form>}
+            { isSearched &&
+                <div className="search-results">
+                    <div className="route-info">
+                        <h3>{route.from}</h3>
+                        <p>down arrow icon</p>
+                        <h3> {route.to} </h3>
+                        <button onClick={()=> setIsSearched(!isSearched)} className="btn-search">Back</button>
+                    </div>
+                    {
+                        selectedVehicle?.riders?.map(riders => <RiderCard selectedVehicle={selectedVehicle} riders={riders}   ></RiderCard>)
+                    }
+
+                </div>
+            }
+
+
+            <div className="map">
+            <Map></Map>
+            </div>
         </div>
     );
 };

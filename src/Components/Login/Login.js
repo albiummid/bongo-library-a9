@@ -7,7 +7,7 @@ import "./Login.css";
 import firebase from "firebase/app";
 import { faLock, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle, faFacebook,  faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faFacebook, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
 if (!firebase.apps.length) {
@@ -28,7 +28,7 @@ const Login = () => {
         password: '',
         confirmPassword: ''
     })
-    // console.log("final update", user);
+    console.log("final update", user);
     const [newUser, setNewUser] = useState(false);
 
     const handleGoogleSignIn = () => {
@@ -36,7 +36,6 @@ const Login = () => {
         firebase.auth()
             .signInWithPopup(provider)
             .then((result) => {
-                console.log(result);
                 const { email, displayName } = result.user;
                 const user = { email, name: displayName }
                 setLoggedInUser(user);
@@ -104,17 +103,17 @@ const Login = () => {
         if (event.target.name === 'email') {
             isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
         }
-        
+
         if (event.target.name === 'password') {
             const isPasswordValid = event.target.value.length > 6;
             const isPasswordHasNumber = /\d{1}/.test(event.target.value)
             isFieldValid = isPasswordValid && isPasswordHasNumber;
         }
         if (newUser && event.target.name === 'confirmPassword') {
-            if ( event.target.value === user.password ) {
+            if (event.target.value === user.password) {
                 isPasswordMatched = true;
                 const isPasswordValid = event.target.value.length > 6;
-            const isPasswordHasNumber = /\d{1}/.test(event.target.value)
+                const isPasswordHasNumber = /\d{1}/.test(event.target.value)
                 isFieldValid = isPasswordMatched && isPasswordValid && isPasswordHasNumber;
             }
         }
@@ -129,47 +128,64 @@ const Login = () => {
     }
 
     const handleSubmit = (event) => {
-        if (newUser && user.email && user.password) {
+        if (newUser && user.email && user.password && user.name) {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then(res => {
-                const { email, displayName } = res.user;
-                const newUserInfo = { email, name: displayName };
-                newUserInfo.error = '';
-                setLoggedInUser(newUserInfo)
-                history.replace(from);
-                alert('SignUp successfully completed 😍')
-            })
-            .catch((error) => {
-                const newUserInfo = {};
-                newUserInfo.error = error.message;
-                setLoggedInUser(newUserInfo); 
-            });
+            
+                .then(res => { 
+                    const { email, displayName } = res.user;
+                    const newUserInfo = { email, name: displayName };
+                    newUserInfo.name = user.name;
+                    newUserInfo.error = '';
+                    setLoggedInUser(newUserInfo);
+                    // console.log(res.user,"user info of signup");
+                    alert('SignUp successfully completed 😍')
+                    updateUserName(user.name);
+                    history.replace(from);
+
+                })
+                .catch((error) => {
+                    const newUserInfo = {};
+                    newUserInfo.error = error.message;
+                    setLoggedInUser(newUserInfo);
+                });
         }
         if (!newUser && user.email && user.password) {
             console.log("cliked on login");
             firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-  .then(res => {
-    
-      const { email, displayName } = res.user;
-      const newUserInfo = {email,name:displayName}
-      console.log("User", res.user);
-      newUserInfo.error = '';
-      setLoggedInUser(newUserInfo);
-      alert("login successful")
-      history.replace(from)
-   
-  })
-  .catch((error) => {
-      const newUserInfo = {};
-      newUserInfo.error = error.message;
-      setLoggedInUser(newUserInfo);
-      alert("not logged in")
-  });
+                .then(res => {
+
+                    const { email, displayName } = res.user;
+                    const newUserInfo = { email, name: displayName }
+                    console.log("User", res.user);
+                    newUserInfo.error = '';
+                    setLoggedInUser(newUserInfo);
+                    alert("login successful")
+                    history.replace(from)
+
+                })
+                .catch((error) => {
+                    const newUserInfo = {};
+                    newUserInfo.error = error.message;
+                    setLoggedInUser(newUserInfo);
+                    alert("not logged in")
+                });
         }
         event.preventDefault();
     }
 
-    
+    const updateUserName = name => {
+        var user = firebase.auth().currentUser;
+
+        user.updateProfile({
+            displayName: name
+        }).then(function () {
+            console.log("succefully");
+        }).catch(function (error) {
+            console.log("error occured",error);
+        });
+    }
+
+
 
     return (
         <div className="card-container">
@@ -185,7 +201,7 @@ const Login = () => {
                     }
 
                 </div>
-                <form onSubmit ={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div>
                         {
                             newUser ? <h1>Sign Up</h1> : <h1>Sign In</h1>
@@ -196,12 +212,12 @@ const Login = () => {
                                 <span >
                                     <FontAwesomeIcon icon={faUser} size="1x" />
                                 </span>
-                                <input onChange={handleChange} type="text" name="name" placeholder="Name"  required minLength="4" />
+                                <input onChange={handleChange} type="text" name="name" placeholder="Name" required minLength="4" />
                             </div>
                         }
                         <div className="input-group">
                             <span>
-                                <FontAwesomeIcon icon={faEnvelope} size="1x" /> 
+                                <FontAwesomeIcon icon={faEnvelope} size="1x" />
                             </span>
                             <input onChange={handleChange} type="email" name="email" placeholder="Email" required />
                         </div>
@@ -219,7 +235,7 @@ const Login = () => {
                                 </span>
                                 <input onChange={handleChange} type="password" name="confirmPassword" placeholder="Confirm Password" minLength="6" required />
                                 {
-                                    user.confirmPassword !==user.password && <p style={{color:"red"}}>Passwords are not same</p>
+                                    user.confirmPassword !== user.password && <p style={{ color: "red" }}>Passwords are not same</p>
                                 }
                             </div>
                         }
@@ -228,13 +244,13 @@ const Login = () => {
                         <p style={{ color: "red" }}>{loggedInUser.error}</p>
 
                         {
-                            !newUser && <input className="btn" type="submit" value="Sign In"/>  
+                            !newUser && <input className="btn-search" type="submit" value="Sign In" />
                         }
                         {
-                          newUser &&  user.password === user.confirmPassword && <input className="btn" type="submit" value="Submit"/>
+                            newUser && user.password === user.confirmPassword && <input className="btn" type="submit" value="Submit" />
                         }
 
-                        
+
                     </div>
 
                     {
