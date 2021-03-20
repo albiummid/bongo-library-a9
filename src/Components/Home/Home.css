@@ -10,10 +10,52 @@
 .background{
     position: absolute;
     width: 100%;
-    height: 95%;
+    height:100%;
  
 }
 
 *{
     font-family: 'Comfortaa', cursive;
+}
+
+@media(max-width:1400px){
+    .category-holder{
+        margin: 0 auto;
+        display: grid;
+   grid-template-columns: repeat(4,193px);
+    }
+    .background{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+     
+    }
+}
+
+@media(max-width:900px){
+    .category-holder{
+        margin: 0 auto;
+        display: grid;
+   grid-template-columns: repeat(3,142px);
+    }
+    .background{
+        position: absolute;
+        width: 100%;
+        height: 700px;
+     
+    }
+}
+
+@media(max-width:480px){
+    .category-holder{
+        margin: 50px auto;
+        display: grid;
+   grid-template-columns: repeat(1,200px);
+    }
+    .background{
+        position: absolute;
+        height: 820px;
+        
+     
+    }
 }

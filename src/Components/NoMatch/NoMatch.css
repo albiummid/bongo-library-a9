@@ -3,7 +3,19 @@
     box-shadow: 5px 5px 10px gray;
     border-radius:15px;
     text-align: center;
-   margin: 20% auto;
+   /* margin: 0 auto; */
     padding:40px;
-    width:400px;
+    width:30%;
+
+}
+.error-div{
+    height: 1000px;
+display: flex;
+justify-content: center;
+align-content: center;
+align-items: center;
+}
+
+@media(max-width:480px){
+    
 }

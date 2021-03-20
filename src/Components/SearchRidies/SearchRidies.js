@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react/cjs/react.development';
 import Map from '../Map/Map';
 import RiderCard from '../RiderCard/RiderCard';
 import "./SearchRidies.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faArrowDown, faLongArrowAltDown } from '@fortawesome/free-solid-svg-icons'
 
 const SearchRidies = () => {
     const [route, setRoute] = useState({
         from: "",
-        to:""
+        to: ""
     });
     const [isSearched, setIsSearched] = useState(false);
     const { id } = useParams();
@@ -26,60 +28,46 @@ const SearchRidies = () => {
     }, []);
     console.log(selectedVehicle);
 
-    const searchHandler = (event) => {
-        const locationFrom = document.getElementById("from").value;
-        const locationTo = document.getElementById("to").value;
-        if (locationFrom && locationTo) {
-            const location = { ...route };
-            location.to = locationTo;
-            location.from = locationFrom;
-            setRoute(location)
-            setIsSearched(!isSearched);
-        }
-        
-     
+    const handleChange = (event) => {
 
-       
-    // const location = { ...route };
-    //         if (event.target.name === "from") {
-    //             location.from = event.target.value;
-    //             setRoute(location);
-    //         }
-    //         if (event.target.name === "to") { 
-    //             location.to = event.target.value;
-    //             setRoute(location);
-    //         }    
-        
-        
+        const location = { ...route };
+        if (event.target.name === "from") {
+            location.from = event.target.value;
+            setRoute(location);
+        }
+        if (event.target.name === "to") {
+            location.to = event.target.value;
+            setRoute(location);
+        }
     }
 
     console.log(route);
     return (
         <div className="search-div">
             {!isSearched &&
-                <form onSubmit={searchHandler} className="pickForm">
-                <div className="input-group">
-                    <span>
-                        Pick From:
+                <form onSubmit={()=>setIsSearched(!isSearched)} className="pickForm">
+                    <div className="input-group">
+                        <span>
+                            Pick From:
                             </span>
-                    <input id="from" type="text" name="from" placeholder="<< Location From " required />
-                </div>
-                <div className="input-group">
-                    <span>
-                        Pick To:
+                        <input onChange={handleChange} id="from" type="text" name="from" placeholder="<< Location From " required />
+                    </div>
+                    <div className="input-group">
+                        <span>
+                            Pick To:
                             </span>
-                    <input type="text" id="to" name="to" placeholder="Location to >>" required />
-                </div>
-                <button className="btn-search" onClick={searchHandler}>Submit</button>
-                {/* <input className="btn-search" type="submit" value="Search" /> */}
-            </form>}
+                        <input onChange={handleChange} type="text" id="to" name="to" placeholder="Location to >>" required />
+                    </div>
+                    {/* <button className="btn-search" onClick={searchHandler}>Submit</button> */}
+                    <input className="btn-search" type="submit" value="Search" />
+                </form>}
             { isSearched &&
                 <div className="search-results">
                     <div className="route-info">
                         <h3>{route.from}</h3>
-                        <p>down arrow icon</p>
+                        <p><FontAwesomeIcon icon={faLongArrowAltDown} size = "2x" /></p>
                         <h3> {route.to} </h3>
-                        <button onClick={()=> setIsSearched(!isSearched)} className="btn-search">Back</button>
+                        <button onClick={() => setIsSearched(!isSearched)} className="btn-search">Back</button>
                     </div>
                     {
                         selectedVehicle?.riders?.map(riders => <RiderCard selectedVehicle={selectedVehicle} riders={riders}   ></RiderCard>)
@@ -90,7 +78,7 @@ const SearchRidies = () => {
 
 
             <div className="map">
-            <Map></Map>
+                <Map></Map>
             </div>
         </div>
     );

@@ -24,7 +24,7 @@ const Header = (props) => {
                         <li><Link to="/">Blog</Link></li>
                         <li><Link to="/">Contact With Us</Link></li>
                         {
-                            <li className="userName">{ loggedInUser.name || loggedInUser.displayName}</li>
+                            <li className="userName">{ loggedInUser.name}</li>
                         }
                         <li>
                         {

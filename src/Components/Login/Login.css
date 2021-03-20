@@ -115,3 +115,37 @@ cursor: pointer;
 .btn:hover{
     opacity: 0.8;
 }
+
+@media(max-width:900px){
+    .sign-card{
+        display: flex;
+        flex-direction: column-reverse;
+        width: 300px;
+    }
+    .img-div{
+        border-top: 1px solid teal;
+        padding-top: 30px;
+    }
+    form{
+        padding-bottom: 30px;
+    }
+   
+}
+
+@media(max-width:480px){
+    .sign-card{
+        display: flex;
+        width: 200px;
+    }
+   
+    form,.img-div {
+        width: 200px;
+      display: grid;
+      grid-template-rows: 250px 50px ;
+      justify-content: center;
+    }
+    .img-div img{
+        width: 200px;
+    }
+
+}

@@ -55,9 +55,9 @@ nav ul li a:hover{
 
 }
 
-@media(max-width:900px){
+@media(max-width:980px){
   .title{
-  font-size: 12px;
+  font-size: 8px;
 }
 
 nav ul{
@@ -87,4 +87,10 @@ nav ul li a{
   border-top: 2px solid teal;
   border-bottom: 2px solid teal;
   padding: 5px;
+}
+
+@media(max-width:480px){
+  .navbar li{
+  justify-content: space-around;
+  }
 }

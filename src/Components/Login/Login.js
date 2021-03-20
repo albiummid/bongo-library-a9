@@ -41,7 +41,9 @@ const Login = () => {
                 setLoggedInUser(user);
                 history.replace(from);
             }).catch((error) => {
-                setLoggedInUser(error.message);
+                const newUserInfo = {}
+                newUserInfo.error = error.message;
+                setLoggedInUser(newUserInfo);
             });
 
     }
@@ -78,10 +80,9 @@ const Login = () => {
                 setLoggedInUser(user)
                 history.replace(from);
             }).catch((error) => {
-
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setLoggedInUser(error);
+                const newUserInfo = {}
+                newUserInfo.error = error.message;
+                setLoggedInUser(newUserInfo);
             });
     }
 
