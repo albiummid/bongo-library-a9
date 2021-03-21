@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CatagoryCard.css"
+import "./CategoryCard.css"
 const CatargoryCard = (props) => {
     const { category, img } = props.vehicle;
     const clickHandler = props.clickHandler;

@@ -57,6 +57,7 @@ border: 1px dot;
     border: none;
     border-radius: 5px;
     font-size: large;
+    cursor: pointer;
 }
 .btn-search:hover{
     opacity: 0.8;

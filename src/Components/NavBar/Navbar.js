@@ -33,7 +33,7 @@ const Navbar = () => {
             </div>
             <ul className={renderClasses()}>
                 <li className="link"> <Link to="/home">Home</Link> </li>
-                <li className="link"> <Link to="/search-rides/car">Destination</Link> </li>
+                <li className="link"> <Link to="/search-rides/car">Search Rides</Link> </li>
                 <li className="link"> <Link to="/">Blog</Link> </li>
                 <li className="link"> <Link to="/">Contact us</Link> </li>
                 {loggedInUser.name &&

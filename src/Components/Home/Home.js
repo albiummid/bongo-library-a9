@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import CatargoryCard from '../CatagoryCard/CatargoryCard';
+import CatargoryCard from '../CatagoryCard/CatergoryCard';
 import "./Home.css";
 
 
