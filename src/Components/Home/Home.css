@@ -7,13 +7,12 @@
    position: relative;
   
 }
-.background{
-    position: absolute;
-    width: 100%;
-    height:100%;
- 
-}
-
+.home-container{
+    background-image: url(../../images/Bg.png);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
 *{
     font-family: 'Comfortaa', cursive;
 }
@@ -24,25 +23,13 @@
         display: grid;
    grid-template-columns: repeat(4,193px);
     }
-    .background{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-     
-    }
 }
 
 @media(max-width:900px){
     .category-holder{
-        margin: 0 auto;
+        margin: 50px auto;
         display: grid;
    grid-template-columns: repeat(3,142px);
-    }
-    .background{
-        position: absolute;
-        width: 100%;
-        height: 700px;
-     
     }
 }
 
@@ -52,10 +39,7 @@
         display: grid;
    grid-template-columns: repeat(1,200px);
     }
-    .background{
-        position: absolute;
-        height: 820px;
-        
-     
-    }
+    .home-container{
+        height: 200vh;
+      }
 }

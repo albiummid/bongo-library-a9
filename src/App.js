@@ -5,43 +5,42 @@ import {
   Route
 } from "react-router-dom";
 import { createContext, useState } from 'react';
-import Header from './Components/Header/Header';
 import NoMatch from './Components/NoMatch/NoMatch';
 import Home from './Components/Home/Home';
-import SearchRidies from './Components/SearchRidies/SearchRidies';
+import SearchRidies from './Components/SearchRides/SearchRides';
 import Login from './Components/Login/Login';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
+import Navbar from './Components/NavBar/Navbar';
 
 export const UserContext = createContext();
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
 
-
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-    
+
       <Router>
-      <Header/>
-      <Switch>
-       
-        <Route path="/home">
-          <Home/>
+        <Navbar />
+        <Switch>
+
+          <Route path="/home">
+            <Home />
           </Route>
           <Route path="/login">
             <Login />
           </Route>
-          <PrivateRoute path="/search-ridies/:name">
-          <SearchRidies/>
-        </PrivateRoute>
-        <Route exact path="/">
-          <Home/>
-        </Route>
-        <Route path="*">
-          <NoMatch/>
-        </Route>
+          <PrivateRoute path="/search-rides/:name">
+            <SearchRidies />
+          </PrivateRoute>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
 
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
     </UserContext.Provider>
   );
 }

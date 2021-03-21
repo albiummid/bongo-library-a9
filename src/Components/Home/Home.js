@@ -18,12 +18,11 @@ const Home = () => {
     }, []);
     const history = useHistory();
     const clickHandler = (name) => {
-        const url = `/search-ridies/${name}`;
+        const url = `/search-rides/${name}`;
         history.push(url)
     }
     return (
         <div className="home-container">
-            <img className="background" src={background} alt="" />
             <div className="category-holder">
 
                 {
