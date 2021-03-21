@@ -13,7 +13,7 @@ const SearchRidies = () => {
         to: ""
     });
     const [isSearched, setIsSearched] = useState(false);
-    const { id } = useParams();
+    const { name } = useParams();
     const [selectedVehicle, setSelectedVehicles] = useState([])
     useEffect(() => {
         const url = "https://api.npoint.io/6b5a64f78b7d4393011c"
@@ -21,12 +21,11 @@ const SearchRidies = () => {
             .then(res => res.json())
             .then(data => {
                 const dataObj = data.bongo;
-                const matchedObject = dataObj.find(vehicle => vehicle.key === id);
+                const matchedObject = dataObj.find(vehicle => vehicle.category === name);
                 setSelectedVehicles(matchedObject);
             })
 
-    }, []);
-    console.log(selectedVehicle);
+    }, [name]);
 
     const handleChange = (event) => {
 
@@ -41,7 +40,6 @@ const SearchRidies = () => {
         }
     }
 
-    console.log(route);
     return (
         <div className="search-div">
             {!isSearched &&

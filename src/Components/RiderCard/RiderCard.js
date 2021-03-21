@@ -5,7 +5,6 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons'
 const RiderCard = (props) => {
     const { img, category } = props.selectedVehicle;
     const {cost ,seat} = props.riders;
-    console.log(img);
     return (
         <div className ="rider-card">
             <div className="rider-info">

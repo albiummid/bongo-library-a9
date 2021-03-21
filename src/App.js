@@ -30,7 +30,7 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <PrivateRoute path="/search-ridies/:id">
+          <PrivateRoute path="/search-ridies/:name">
           <SearchRidies/>
         </PrivateRoute>
         <Route exact path="/">

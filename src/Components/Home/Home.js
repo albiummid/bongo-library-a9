@@ -16,23 +16,22 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setVehicles(data.bongo))
     }, []);
-    console.log(vehicles);
     const history = useHistory();
-    const clickHandler = (id) => {
-        const url = `/search-ridies/${id}`;
+    const clickHandler = (name) => {
+        const url = `/search-ridies/${name}`;
         history.push(url)
     }
     return (
         <div className="home-container">
-            <img className="background" src={background} alt=""/>
+            <img className="background" src={background} alt="" />
             <div className="category-holder">
 
-            {
-                vehicles.map(vehicle => <CatargoryCard vehicle={vehicle} key={vehicle.key} clickHandler = {clickHandler}></CatargoryCard> )
+                {
+                    vehicles.map(vehicle => <CatargoryCard vehicle={vehicle} key={vehicle.key} clickHandler={clickHandler}></CatargoryCard>)
                 }
-                
 
-           </div>
+
+            </div>
         </div>
     );
 };

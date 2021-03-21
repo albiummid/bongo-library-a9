@@ -28,7 +28,6 @@ const Login = () => {
         password: '',
         confirmPassword: ''
     })
-    console.log("final update", user);
     const [newUser, setNewUser] = useState(false);
 
     const handleGoogleSignIn = () => {
@@ -73,8 +72,6 @@ const Login = () => {
             .auth()
             .signInWithPopup(provider)
             .then((result) => {
-                const credential = result.credential;
-                const token = credential.accessToken;
                 const { email, displayName } = result.user;
                 const user = { email, name: displayName };
                 setLoggedInUser(user)
