@@ -46,7 +46,7 @@ const Login = () => {
             });
 
     }
-
+// Facebook SignIn Handler
     const handleFbSignIn = () => {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase
@@ -66,6 +66,7 @@ const Login = () => {
             });
     }
 
+    // Githun SignIn Handler
     const handleGithubSignIn = () => {
         var provider = new firebase.auth.GithubAuthProvider();
         firebase
@@ -85,7 +86,7 @@ const Login = () => {
 
 
 
-
+// Handaling Value change of Input fields
     const handleChange = (event) => {
         let isFieldValid = true;
         let isPasswordMatched = false;
@@ -125,6 +126,7 @@ const Login = () => {
 
     }
 
+    // Submiting the input value to the server.
     const handleSubmit = (event) => {
         if (newUser && user.email && user.password && user.name) {
             firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
@@ -145,6 +147,8 @@ const Login = () => {
                     const newUserInfo = {};
                     newUserInfo.error = error.message;
                     setLoggedInUser(newUserInfo);
+                    alert(`${error.message}`)
+                    
                 });
         }
         if (!newUser && user.email && user.password) {
@@ -157,7 +161,7 @@ const Login = () => {
                     console.log("User", res.user);
                     newUserInfo.error = '';
                     setLoggedInUser(newUserInfo);
-                    alert("login successful")
+                    alert("login successful 😍")
                     history.replace(from)
 
                 })
@@ -165,7 +169,7 @@ const Login = () => {
                     const newUserInfo = {};
                     newUserInfo.error = error.message;
                     setLoggedInUser(newUserInfo);
-                    alert("not logged in")
+                    alert(`${error.message}`)
                 });
         }
         event.preventDefault();
@@ -210,7 +214,7 @@ const Login = () => {
                                 <span >
                                     <FontAwesomeIcon icon={faUser} size="1x" />
                                 </span>
-                                <input onChange={handleChange} type="text" name="name" placeholder="Name" required minLength="4" />
+                                <input onChange={handleChange} type="text" name="name" placeholder="Name" required minLength="3" />
                             </div>
                         }
                         <div className="input-group">

@@ -1,24 +1,25 @@
 .route-info{
     width: 350px;
     margin: 10px auto;
-    height: 200px;
+    height: 250px;
     padding: 15px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     line-height: 0px;
     box-shadow: 5px 5px 10px gray;
     border-radius: 10px;
-    align-items: flex-start;
+    /* align-items: flex-start; */
     background-color: #17a2b8;
     color: white;
 border: 1px dot;
 }
 .route-info h3{
-    color:white;
     text-transform: capitalize;
 }
 .route-info span,p{
-    color:orangered;
+    color:black;
+    font-weight:bolder;
 
 }
 .search-div{
@@ -29,7 +30,7 @@ border: 1px dot;
 .pickForm{
     width: 350px;
     margin: 10px 0;
-    height: 220px;
+    height: 260px;
     padding: 20px;
     display: flex;
     flex-direction: column;

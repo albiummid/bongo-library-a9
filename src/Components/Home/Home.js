@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import CatargoryCard from '../CatagoryCard/CatargoryCard';
-import background from "../../images/Bg.png"
 import "./Home.css";
 
 

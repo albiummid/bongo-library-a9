@@ -24,7 +24,6 @@ const Navbar = () => {
 
         return classes;
     }
-    console.log(navLinkOpen);
     return (
         <nav>
             <div className="logo">

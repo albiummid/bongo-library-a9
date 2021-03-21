@@ -13,7 +13,7 @@
 }
 form span{
     border-bottom: 1px solid teal;
-    padding-bottom: 6px;
+    padding-bottom: 5px;
 }
 .card-container{
     margin: 200px 0;
@@ -145,7 +145,13 @@ cursor: pointer;
       justify-content: center;
     }
     .img-div img{
-        width: 200px;
+        width: 220px;
+    }
+    form{
+        height: 400px;
+    }
+    .social-links{
+        margin-top: 100px;
     }
 
 }

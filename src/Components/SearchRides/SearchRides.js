@@ -38,6 +38,10 @@ const SearchRidies = () => {
             location.to = event.target.value;
             setRoute(location);
         }
+        if (event.target.name === "date") {
+            location.bookingDate = event.target.value;
+            setRoute(location);
+        }
     }
 
     return (
@@ -48,22 +52,30 @@ const SearchRidies = () => {
                         <span>
                             Pick From:
                             </span>
-                        <input onChange={handleChange} id="from" type="text" name="from" placeholder="<< Location From " required />
+                        <input onChange={handleChange}  type="text" name="from" placeholder="<< Location From " required />
                     </div>
                     <div className="input-group">
                         <span>
                             Pick To:
                             </span>
-                        <input onChange={handleChange} type="text" id="to" name="to" placeholder="Location to >>" required />
+                        <input onChange={handleChange} type="text" name="to" placeholder="Location to >>" required />
+                    </div>
+                    <div className="input-group">
+                        <span>
+                            Booking Date:
+                            </span>
+                        <input onChange={handleChange} type="date"  name="date" required />
                     </div>
                     <input className="btn-search" type="submit" value="Search" />
                 </form>}
             { isSearched &&
                 <div className="search-results">
                     <div className="route-info">
-                        <h3> <span>From :</span> {route.from}</h3>
+                        <h3> From : <span>{route.from}</span></h3>
                         <p><FontAwesomeIcon icon={faLongArrowAltDown} size = "2x" /></p>
-                        <h3> <span>To :</span>  {route.to} </h3>
+                    <h3> To :  <span>{route.to} </span></h3>
+                    
+                    <h4> Booking Date : <span> { route.bookingDate}</span></h4>
                         <button onClick={() => setIsSearched(!isSearched)} className="btn-search">Back</button>
                     </div>
                     {

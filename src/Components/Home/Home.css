@@ -8,7 +8,7 @@
   
 }
 .home-container{
-    background-image: url(../../images/Bg.png);
+    background-image: url(../../images/Bg.jpg);
     height: 100vh;
     background-size: cover;
     background-position: center;
@@ -40,6 +40,6 @@
    grid-template-columns: repeat(1,200px);
     }
     .home-container{
-        height: 200vh;
+        height: 150vh;
       }
 }
